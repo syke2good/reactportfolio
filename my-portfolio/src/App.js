@@ -1,29 +1,27 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import styled from 'styled-components';
-import Header from './header';
-import Home from './home';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Header from './Header';
+import Home from './Home';
 import Projects from './Projects';
-import Contact from './contact';
-
-const MainContainer = styled.main`
-  max-width: 1200px;
-  margin: 0 auto;
-`;
+import Contact from './Contact';
 
 function App() {
+  const routes = [
+    { path: '/', component: Home },
+    { path: '/projects', component: Projects },
+    { path: '/contact', component: Contact },
+    {path: '/header', component: Header},
+  ];
+
   return (
     <Router>
       <Header />
-      <MainContainer>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/projects" component={Projects} />
-          <Route path="/contact" component={Contact} />
-        </Switch>
-      </MainContainer>
+      {routes.map(({ path, component }) => (
+        <Route key={path} exact path={path} component={component} />
+      ))}
     </Router>
   );
 }
 
 export default App;
+
+
